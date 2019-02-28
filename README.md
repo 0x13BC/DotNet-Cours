@@ -1,3 +1,3 @@
-# BetEtMechant
+# BetUnLapin
 
-projet .Net core
+Cours .Net core
