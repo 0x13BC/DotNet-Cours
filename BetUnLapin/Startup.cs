@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -40,13 +41,30 @@ namespace BetUnLapin
             }
 
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
+           // app.UseMvcWithDefaultRoute();
+            app.UseMvc(ConfigureRoute);
+
+            /*
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Bet un Lapin!");
             });
-
+            */
             
+        }
+        // Du plus precis au moins precis dans la declaration de route
+        private void ConfigureRoute (IRouteBuilder routeBuilder)
+        {
+            routeBuilder.MapRoute(
+               name: "about",
+               template: "a-propos-de",
+               defaults: new { controller = "Home", action = "About" });
+
+
+            routeBuilder.MapRoute(
+                name: "Default",
+                template: "{controller}/{action}/{id?}",
+                defaults: new {controller = "Home", action = "Index"});
         }
     }
 }
